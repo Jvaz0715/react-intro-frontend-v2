@@ -12,11 +12,11 @@ export class TodoList extends Component {
       return (
          <div style={{display: "flex", justifyContent: "center", listStyle: "none",}}>
             <li className={`${isDone && `li-done`}`}>{todo}</li>
-            <button id="edit-button">Edit</button>
+            <button className="todo-buttons" id="edit-button">Edit</button>
             
-            <button id="done-button" onClick={() => handleDoneByID(id, isDone)}>Done</button>
+            <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(id, isDone)}>Done</button>
             
-            <button id="delete-button" onClick={() => handleDeleteByID(id)}>Delete</button>
+            <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(id)}>Delete</button>
          </div>
       )
    }
