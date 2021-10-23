@@ -1,95 +1,41 @@
-import React, { Component } from "react";
-import Child1 from './components/Child1';
-
-import "./App.css";
+import React, { Component } from 'react'
 
 export class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      count: 0,
-      toggle: false,
-    };
-  
+  // because we will use arrow functions, we don't really need to do constructor, props, super (REFERENCE: App-1.js)
+  // we could still declare our state without need to do "this.state" inside the constructor
+  state ={
+    name: "Charmander",
+    backgroundColor: "black",
   };
 
-  addCount = () => {
-    console.log("add is clicked")
+  // lifecycle methods from React.js reference docs
+
+  // lifecycle componentDidMount()
+  componentDidMount() {
+    // this will run after render only once!
     this.setState({
-      count: this.state.count + 1,
+      name: "Meow",
+      backgroundColor: "yellow",
     })
   };
 
-  minusCount = () => {
-    console.log("minus is clicked")
-
-    this.setState({
-      count: this.state.count -1,
-    })
+  // lifecycle componentDidUpdate()
+  componentDidUpdate(prevProps, prevState) {
+    // anytime componentDidMount runs, componentDidUpdate will be triggered and run
+    if (prevState.name === "Charmander") {
+      this.setState({name: "Meow"})
+    }
   };
 
-  toggleColorFunc = () => {
-    this.setState((prevState) => {
-
-      return {
-        toggle: !prevState.toggle,
-      }
-    })
-  };
 
   render() {
     return (
-      <div className="counter-container">
-        <div>
-        Count: {this.state.count}
-        </div>
-        <button onClick={this.minusCount}>-</button>
-        <button onClick={this.addCount}>+</button>
+      <div style={{backgroundColor: this.state.backgroundColor, color: "white"}}>
+        {this.state.name}
 
-        <hr />
-
-        <div className="hello-container">
-          <h1>Hello, James</h1>
-        </div>
-
-        <hr />
-
-        <div className={`toggle-container ${this.state.toggle ? "toggle-true" : "toggle-false"}`}>
-          <button onClick={this.toggleColorFunc}>Toggle Me</button>
-        </div>
-
-        <hr />
-
-        <Child1 name="Michael" age={49}/>
-        <br />
-
-        <Child1 name="Dwight" age={34}/>
-        <br />
-
-        <Child1 name="Jim" age={29}/>
-        <br />
       </div>
-    );
-  };
-};
+    )
+  }
+}
 
 export default App;
-
-
-
-// ===============
-  // The below is the standard of what we get when we create react app. Above is a more react-centric approach
-// ===============
-
-
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       Hello, its me
-//     </div>
-//   );
-// }
-
-// export default App;
