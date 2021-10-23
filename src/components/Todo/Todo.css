@@ -1,0 +1,12 @@
+.todo-div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 100px;
+   border: 2px solid green;
+}
+
+.todo-div ul > li {
+   list-style: none;
+}
