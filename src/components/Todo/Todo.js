@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { v4 as uuidv4 } from "uuid";
 import "./Todo.css";
 
 export class Todo extends Component {
@@ -7,15 +7,15 @@ export class Todo extends Component {
    state = {
       todoList: [
          {
-            id: 1,
+            id: uuidv4(),
             todo: "walk tokyo",
          },
          {
-            id: 2,
+            id: uuidv4(),
             todo: "code project"
          },
          {
-            id: 3,
+            id: uuidv4(),
             todo: "clean apartment",
          }
       ],
@@ -39,7 +39,7 @@ export class Todo extends Component {
       let newTodoArray = [
          ...this.state.todoList, 
          {
-            id: this.state.todoList.length,
+            id: uuidv4(),
             todo: this.state.todoInput
          }
       ];
@@ -55,7 +55,7 @@ export class Todo extends Component {
       return (
          <div className="todo-div">
             
-            <div>
+            <div className="form-div">
                <form
                   onSubmit={this.handleOnSubmit}
                >
@@ -68,10 +68,8 @@ export class Todo extends Component {
                </form>
             </div>
 
-
-            <hr />
-            <div>
-               <ul>
+            <div className="todo-list-container">
+               <ul className="todo-unordered-list">
                   {this.state.todoList.map((item, index) => {
                      return <li key={index}>{item.todo}</li>
                   })}
