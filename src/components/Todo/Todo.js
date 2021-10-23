@@ -10,14 +10,17 @@ export class Todo extends Component {
          {
             id: uuidv4(),
             todo: "walk tokyo",
+            isDone: false,
          },
          {
             id: uuidv4(),
-            todo: "code project"
+            todo: "code project",
+            isDone: false,
          },
          {
             id: uuidv4(),
             todo: "clean apartment",
+            isDone: false,
          }
       ],
       todoInput: "",
@@ -41,7 +44,8 @@ export class Todo extends Component {
          ...this.state.todoList, 
          {
             id: uuidv4(),
-            todo: this.state.todoInput
+            todo: this.state.todoInput,
+            isDone: false,
          }
       ];
 
@@ -51,6 +55,31 @@ export class Todo extends Component {
          todoInput: "",
       })
    };
+
+   // handleDeleteByID
+   handleDeleteByID = (id) => {
+      let newTodoArray = this.state.todoList.filter(item => item.id !== id);
+
+      this.setState({
+         todoList: newTodoArray,
+      })
+   };
+
+   // handleDoneByID
+   handleDoneByID = (id, isDone) => {
+      let updatedArray = this.state.todoList.map(item => {
+         if (item.id === id) {
+            item.isDone = !item.isDone;
+         }
+         return item;
+      });
+
+      this.setState({
+         todoList: updatedArray,
+      })
+   }
+
+
 // =====================================
    render() {
       return (
@@ -64,6 +93,7 @@ export class Todo extends Component {
                      type="text"
                      name="todoInput"
                      onChange={this.handleTodoOnChange}
+                     value={this.state.todoInput}
                   />
                   <button>Submit</button>
                </form>
@@ -72,7 +102,14 @@ export class Todo extends Component {
             <div className="todo-list-container">
                <ul className="todo-unordered-list">
                   {this.state.todoList.map((item) => {
-                     return <TodoList key={item.id} item={item}/>
+                     return (
+                        <TodoList 
+                           key={item.id} 
+                           item={item}
+                           handleDoneByID={this.handleDoneByID}
+                           handleDeleteByID={this.handleDeleteByID}
+                        />
+                     )
                   })}
                </ul>
             </div>
