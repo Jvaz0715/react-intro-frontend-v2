@@ -7,6 +7,7 @@ export class App extends Component {
     super(props);
     this.state = {
       count: 0,
+      toggle: false,
     };
   
   };
@@ -26,6 +27,14 @@ export class App extends Component {
     })
   };
 
+  toggleColorFunc = () => {
+    this.setState((prevState) => {
+      return {
+        toggle: !prevState.toggle,
+      }
+    })
+  };
+
   render() {
     return (
       <div className="counter-container">
@@ -34,6 +43,18 @@ export class App extends Component {
         </div>
         <button onClick={this.minusCount}>-</button>
         <button onClick={this.addCount}>+</button>
+
+        <hr />
+
+        <div className="hello-container">
+          <h1>Hello, James</h1>
+        </div>
+
+        <hr />
+
+        <div className={`toggle-container ${this.state.toggle ? "toggle-true" : "toggle-false"}`}>
+          <button onClick={this.toggleColorFunc}>Toggle Me</button>
+        </div>
       </div>
     );
   };
