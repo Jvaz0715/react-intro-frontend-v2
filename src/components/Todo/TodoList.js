@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import "./TodoList.css";
 
 export class TodoList extends Component {
@@ -26,6 +28,12 @@ export class TodoList extends Component {
          </div>
       )
    }
+};
+
+TodoList.propType = {
+   item: PropTypes.object.isRequired,
+   handleDeleteByID: PropTypes.func.isRequired,
+   handleDoneByID: PropTypes.func.isRequired,
 }
 
 export default TodoList;
