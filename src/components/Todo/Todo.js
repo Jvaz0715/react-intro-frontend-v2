@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from "uuid";
+import TodoList from './TodoList';
 import "./Todo.css";
 
 export class Todo extends Component {
@@ -47,10 +48,10 @@ export class Todo extends Component {
       // once we have our NEW array, we setState to it
       this.setState({
          todoList: newTodoArray,
+         todoInput: "",
       })
    };
-
-
+// =====================================
    render() {
       return (
          <div className="todo-div">
@@ -70,8 +71,8 @@ export class Todo extends Component {
 
             <div className="todo-list-container">
                <ul className="todo-unordered-list">
-                  {this.state.todoList.map((item, index) => {
-                     return <li key={index}>{item.todo}</li>
+                  {this.state.todoList.map((item) => {
+                     return <TodoList key={item.id} item={item}/>
                   })}
                </ul>
             </div>
