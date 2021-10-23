@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Child1 from './components/Child1';
 
 import "./App.css";
 
@@ -29,6 +30,7 @@ export class App extends Component {
 
   toggleColorFunc = () => {
     this.setState((prevState) => {
+
       return {
         toggle: !prevState.toggle,
       }
@@ -55,6 +57,17 @@ export class App extends Component {
         <div className={`toggle-container ${this.state.toggle ? "toggle-true" : "toggle-false"}`}>
           <button onClick={this.toggleColorFunc}>Toggle Me</button>
         </div>
+
+        <hr />
+
+        <Child1 name="Michael" age={49}/>
+        <br />
+
+        <Child1 name="Dwight" age={34}/>
+        <br />
+
+        <Child1 name="Jim" age={29}/>
+        <br />
       </div>
     );
   };
