@@ -16,8 +16,8 @@
 #edit-button:hover,
 #done-button:hover,
 #delete-button:hover {
-   background-color: lightgray;
-   border: 1px solid gray;
+   background-color: gray;
+   
 }
 
 #edit-button {
@@ -30,4 +30,10 @@
 
 #delete-button {
    background-color: lightsalmon;
+}
+
+#todo-td {
+   /* border: 2px solid green; */
+   width: 150px;
+   overflow-wrap: break-word;
 }
