@@ -10,6 +10,7 @@ export class TodoList extends Component {
    };
 
    onHandleEditClick = () => {
+      
       this.setState((prevState)=>{
          return {
             canEdit: !prevState.canEdit,
@@ -29,12 +30,13 @@ export class TodoList extends Component {
    }
 
    render() {
-      // console.log(this.props.handleDeleteByID)
+      
       const { todo, id, isDone, } = this.props.item;
       const {handleDoneByID, handleDeleteByID, } = this.props;
       const { canEdit, editInput } = this.state;
 
       return (
+         
          <div style={{display: "flex", justifyContent: "center", listStyle: "none",}}>
             
             {/* edit/submit dynamic input to line item*/}

@@ -91,7 +91,7 @@ export class Todo extends Component {
       this.setState({
          todoList: updatedArray,
       })
-   }
+   };
 
 
 // =====================================
