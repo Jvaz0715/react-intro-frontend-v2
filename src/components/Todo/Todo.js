@@ -56,6 +56,20 @@ export class Todo extends Component {
       })
    };
 
+   // handleEditByID
+   handleEditByID = (id, editInput) => {
+      let updatedArray = this.state.todoList.map(item => {
+         if(item.id === id) {
+            item.todo = editInput;
+         }
+         return item;
+      });
+
+      this.setState({
+         todoList: updatedArray,
+      })
+   };
+
    // handleDeleteByID
    handleDeleteByID = (id) => {
       let newTodoArray = this.state.todoList.filter(item => item.id !== id);
@@ -108,6 +122,7 @@ export class Todo extends Component {
                            item={item}
                            handleDoneByID={this.handleDoneByID}
                            handleDeleteByID={this.handleDeleteByID}
+                           handleEditByID={this.handleEditByID}
                         />
                      )
                   })}
