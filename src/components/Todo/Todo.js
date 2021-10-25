@@ -5,6 +5,7 @@ import "./Todo.css";
 
 export class Todo extends Component {
 
+   //================= Our State ====================
    state = {
       todoList: [
          {
@@ -26,6 +27,7 @@ export class Todo extends Component {
       todoInput: "",
    };
 
+   //================= Handles input and submit of new todo ====================
    // functions
    // handleTodoOnChange is a function that takes an event inside of the input field and uses setState to change the todoInput, you still need to handle the form submit
    handleTodoOnChange = (e) => {
@@ -56,7 +58,9 @@ export class Todo extends Component {
       })
    };
 
-   // handleEditByID
+    //================= Todo Items buttons ====================
+
+   // handleEditByID => Really pay attention to this as it relies on code inside of TodoList.js
    handleEditByID = (id, editInput) => {
       let updatedArray = this.state.todoList.map(item => {
          if(item.id === id) {
@@ -93,12 +97,32 @@ export class Todo extends Component {
       })
    };
 
+   //=================Todo list sort buttons ====================
 
-// =====================================
+   sortByDateNewestToOldest = () => {
+
+   };
+
+   sortByDateOldestToNewest = () => {
+
+   };
+
+   sortByDone = () => {
+
+   };
+
+   sortByNotDone = () => {
+
+   };
+
+
+// =============== Render Below ======================
    render() {
+      console.log(this.state)
       return (
          <div className="todo-div">
             
+            {/* form/submit div */}
             <div className="form-div">
                <form
                   onSubmit={this.handleOnSubmit}
@@ -113,6 +137,45 @@ export class Todo extends Component {
                </form>
             </div>
 
+            {/* place sorting buttons below */}
+            <div className="sorting-buttons-container">
+               <ul>
+                  
+                  {/* date newest to oldest */}
+                  <li>
+                     <button onClick={this.sortByDateNewestToOldest}>
+                        Most Recent
+                     </button>
+                  </li>
+
+                  {/* date oldest to newest */}
+                  <li>
+                     <button onClick={this.sortByDateOldestToNewest}>
+                        Oldest
+                     </button>
+                  </li>
+
+                  {/* sort by isDone */}
+                  <li>
+                     <button onClick={this.sortByDone}>
+                        Completed
+                     </button>
+                  </li>
+
+                  {/* sort by is *NOT* Done */}
+                  <li>
+                     <button onClick={this.sortByNotDone}>
+                        Not Completed
+                     </button>
+                  </li>
+
+
+
+               </ul>
+            </div>
+
+
+            {/* Todo List Container with all todos! */}
             <div className="todo-list-container">
                <ul className="todo-unordered-list">
                   {this.state.todoList.map((item) => {

@@ -33,7 +33,7 @@
 }
 
 #todo-td {
-   border: 2px solid green;
+   /* border: 2px solid green; */
    width: 150px;
    overflow-wrap: break-word;
 }

@@ -11,7 +11,7 @@
 .form-div {
    /* border: 3px solid red; */
    margin-bottom: 10px;
-   border: 3px solid red;
+   /* border: 3px solid red; */
 }
 
 .form-div input {
@@ -37,7 +37,7 @@
 }
 
 .todo-list-container {
-   border: 3px solid orange;
+   /* border: 3px solid orange; */
    margin-bottom: 10px;
 }
 
@@ -47,7 +47,32 @@
 }
 
 
-.todo-unordered-list > li {
+.todo-unordered-list > li,
+.sorting-buttons-container ul > li {
    list-style: none;
    /* border: 2px solid green; */
+}
+
+.sorting-buttons-container ul {
+   border: 3px solid red;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.sorting-buttons-container ul > li {
+   margin: 3px;
+}
+
+.sorting-buttons-container li > button {
+   background-color: lightslategray;
+   color: white;
+   padding: 10px 10px;
+   border: none;
+   border-radius: 5px;
+}
+
+.sorting-buttons-container li > button:hover {
+   background-color: blueviolet;
+   padding: 12px;
 }
