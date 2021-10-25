@@ -12,16 +12,19 @@ export class Todo extends Component {
             id: uuidv4(),
             todo: "walk tokyo",
             isDone: false,
+            dateAdded: new Date().getTime(),
          },
          {
             id: uuidv4(),
             todo: "code project",
             isDone: false,
+            dateAdded: new Date().getTime() + 1,
          },
          {
             id: uuidv4(),
             todo: "clean apartment",
             isDone: false,
+            dateAdded: new Date().getTime() + 2,
          }
       ],
       todoInput: "",
@@ -48,6 +51,7 @@ export class Todo extends Component {
             id: uuidv4(),
             todo: this.state.todoInput,
             isDone: false,
+            dateAdded: new Date().getTime(),
          }
       ];
 

@@ -36,47 +36,38 @@ export class TodoList extends Component {
       const { canEdit, editInput } = this.state;
 
       return (
-         
          <div style={{display: "flex", justifyContent: "center", listStyle: "none",}}>
             <table>
-               <tr>
-                  <td id="todo-td">
-                     {/* edit/submit dynamic input to line item*/}
-                     {canEdit ? (
-                        <input type="text" name="editInput" value={editInput} onChange={this.handleEditOnChange}/> 
-                     ) : (
-                        <li className={`${isDone && `li-done`}`}>{todo}</li>
-                     )}
-                  </td>
+               <tbody>
+                  <tr>
+                     <td id="todo-td">
+                        {/* edit/submit dynamic input to line item*/}
+                        {canEdit ? (
+                           <input type="text" name="editInput" value={editInput} onChange={this.handleEditOnChange}/> 
+                        ) : (
+                           <li className={`${isDone && `li-done`}`}>{todo}</li>
+                        )}
+                     </td>
 
-                  <td>
-                     {/* edit/submit dynamic button*/}
-                     {canEdit 
-                        ? (<button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(id)}>Submit</button>)
-                        : (<button className="todo-buttons" id="edit-button" onClick={this.onHandleEditClick}>Edit</button>)
-                     }
-                  </td>
+                     <td>
+                        {/* edit/submit dynamic button*/}
+                        {canEdit 
+                           ? (<button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(id)}>Submit</button>)
+                           : (<button className="todo-buttons" id="edit-button" onClick={this.onHandleEditClick}>Edit</button>)
+                        }
+                     </td>
 
-                  <td>
-                     {/* done toggle for isDone */}
-                     <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(id, isDone)}>Done</button>
-                  </td>
+                     <td>
+                        {/* done toggle for isDone */}
+                        <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(id, isDone)}>Done</button>
+                     </td>
 
-                  <td>
-                     <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(id)}>Delete</button>
-                  </td>
-
-               </tr>
+                     <td>
+                        <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(id)}>Delete</button>
+                     </td>
+                  </tr>
+               </tbody>
             </table>
-   
-            
-            
-            
-            
-
-            
-            
-            
          </div>
       )
    }
