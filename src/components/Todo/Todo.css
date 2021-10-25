@@ -36,6 +36,11 @@
    background-color: gray;
 }
 
+.submit-error-message{
+   color: red;
+   font-size: 14px;
+}
+
 .todo-list-container {
    /* border: 3px solid orange; */
    margin-bottom: 10px;

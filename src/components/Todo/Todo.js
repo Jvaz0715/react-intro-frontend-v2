@@ -28,6 +28,8 @@ export class Todo extends Component {
          }
       ],
       todoInput: "",
+      error: null,
+      errorMessage:"",
    };
 
    //================= Handles input and submit of new todo ====================
@@ -36,6 +38,8 @@ export class Todo extends Component {
    handleTodoOnChange = (e) => {
       this.setState({
          todoInput: e.target.value,
+         error: false,
+         errorMessage: "",
       })
    };
 
@@ -43,23 +47,41 @@ export class Todo extends Component {
    handleOnSubmit = (e) => {
       // inside of this function is where we add the preventDefault, otherwise the page will keep refreshing onsubmit click
       e.preventDefault();
-      
-      // logic to add a new todo below!
-      let newTodoArray = [
-         ...this.state.todoList, 
-         {
-            id: uuidv4(),
-            todo: this.state.todoInput,
-            isDone: false,
-            dateAdded: new Date().getTime(),
-         }
-      ];
 
-      // once we have our NEW array, we setState to it
-      this.setState({
-         todoList: newTodoArray,
-         todoInput: "",
-      })
+      if(this.state.todoInput.length === 0) {
+         this.setState({
+            error: true,
+            errorMessage: "Cannot create an empty todo",
+         })
+      } else {
+
+         let checkIfTodoExists = this.state.todoList.findIndex(item => item.todo.toLowerCase() === this.state.todoInput.toLowerCase());
+
+         if (checkIfTodoExists > -1) {
+            this.setState({
+               error: true,
+            errorMessage: "Todo already exists!",
+            });
+         } else {
+            // logic to add a new todo below!
+         let newTodoArray = [
+            ...this.state.todoList, 
+            {
+               id: uuidv4(),
+               todo: this.state.todoInput,
+               isDone: false,
+               dateAdded: new Date().getTime(),
+            }
+         ];
+
+         // once we have our NEW array, we setState to it
+         this.setState({
+            todoList: newTodoArray,
+            todoInput: "",
+         })
+         }
+         
+      };
    };
 
     //================= Todo Items buttons ====================
@@ -104,11 +126,26 @@ export class Todo extends Component {
    //=================Todo list sort buttons ====================
 
    sortByDateNewestToOldest = () => {
-
+      let sortedTodoList = this.state.todoList
+         .sort((a, b) => {
+            return new Date(a.dateAdded) - new Date(b.dateAdded);
+         })
+         .reverse();
+      
+      this.setState({
+         todoList: sortedTodoList,
+      })
    };
 
    sortByDateOldestToNewest = () => {
-
+      let sortedTodoList = this.state.todoList
+         .sort((a, b) => {
+            return new Date(a.dateAdded) - new Date(b.dateAdded);
+         });
+      
+      this.setState({
+         todoList: sortedTodoList,
+      })
    };
 
    sortByDone = () => {
@@ -122,7 +159,6 @@ export class Todo extends Component {
 
 // =============== Render Below ======================
    render() {
-      console.log(this.state)
       return (
          <div className="todo-div">
             
@@ -131,13 +167,20 @@ export class Todo extends Component {
                <form
                   onSubmit={this.handleOnSubmit}
                >
-                  <input
-                     type="text"
-                     name="todoInput"
-                     onChange={this.handleTodoOnChange}
-                     value={this.state.todoInput}
-                  />
-                  <button>Submit</button>
+                  <div>
+                     <input
+                        type="text"
+                        name="todoInput"
+                        onChange={this.handleTodoOnChange}
+                        value={this.state.todoInput}
+                     />
+                     <button>Submit</button>
+                  </div>
+                  
+                  {/* the below will only show up if we have made a mistake of some sort */}
+                  <span className="submit-error-message">
+                     {this.state.error && this.state.errorMessage}
+                  </span>
                </form>
             </div>
 
