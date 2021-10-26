@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 import TodoList from './TodoList';
 import "./Todo.css";
 
@@ -12,6 +13,21 @@ export class Todo extends Component {
       error: null,
       errorMessage:"",
    };
+
+   //================= lifecycles to use data ====================
+
+   async componentDidMount() {
+      try{
+         let allTodos = await axios.get("http://localhost:3001/api/todos/get-all-todos");
+         console.log(allTodos)
+         this.setState({
+            todoList: allTodos.data.payload,
+         })
+      } catch(e) {
+         console.log(e)
+      }
+      
+   }
 
    //================= Handles input and submit of new todo ====================
    // functions
@@ -209,7 +225,7 @@ export class Todo extends Component {
                   {this.state.todoList.map((item) => {
                      return (
                         <TodoList 
-                           key={item.id} 
+                           key={item._id} 
                            item={item}
                            handleDoneByID={this.handleDoneByID}
                            handleDeleteByID={this.handleDeleteByID}
