@@ -84,17 +84,22 @@ export class Todo extends Component {
     //================= Todo Items buttons ====================
 
    // handleEditByID => Really pay attention to this as it relies on code inside of TodoList.js
-   handleEditByID = (id, editInput) => {
-      let updatedArray = this.state.todoList.map(item => {
-         if(item.id === id) {
-            item.todo = editInput;
-         }
-         return item;
-      });
-
-      this.setState({
-         todoList: updatedArray,
-      })
+   handleEditByID = async (id, editInput) => {
+      try{
+         let updatedTodo = await axios.put(`http://localhost:3001/api/todos/update-todo-by-id/${id}`, {todo: editInput});
+         let updatedArray = this.state.todoList.map(item => {
+            if(item._id === updatedTodo.data.payload._id) {
+               item.todo = updatedTodo.data.payload.todo;
+            }
+            return item;
+         });
+   
+         this.setState({
+            todoList: updatedArray,
+         })
+      } catch(e){
+         console.log(e)
+      }
    };
 
    // handleDeleteByID
@@ -182,6 +187,7 @@ export class Todo extends Component {
                         name="todoInput"
                         onChange={this.handleTodoOnChange}
                         value={this.state.todoInput}
+                        autoFocus
                      />
                      <button>Submit</button>
                   </div>
@@ -224,9 +230,6 @@ export class Todo extends Component {
                         Not Completed
                      </button>
                   </li>
-
-
-
                </ul>
             </div>
 
@@ -250,6 +253,6 @@ export class Todo extends Component {
          </div>
       )
    }
-}
+};
 
 export default Todo;
