@@ -285,6 +285,7 @@ export class Todo extends Component {
                            handleDoneByID={this.handleDoneByID}
                            handleDeleteByID={this.handleDeleteByID}
                            handleEditByID={this.handleEditByID}
+                           inputID={item._id} //to autofocus when clicking edit todo
                         />
                      )
                   })}

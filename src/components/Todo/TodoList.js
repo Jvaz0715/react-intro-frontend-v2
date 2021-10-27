@@ -19,6 +19,13 @@ export class TodoList extends Component {
       })
    };
 
+   componentDidUpdate() {
+      let input = document.getElementById(this.props.inputID);
+      if (input) {
+         input.focus();
+      }
+   };
+
    handleEditOnChange = (e) => {
       this.setState({
          editInput: e.target.value,
@@ -28,12 +35,12 @@ export class TodoList extends Component {
    onHandleEditSubmit = (id) => {
       this.onHandleEditClick();
       this.props.handleEditByID(id, this.state.editInput)
-   }
+   };
 
    render() {
       
-      const { todo, _id, isDone, } = this.props.item;
-      const {handleDoneByID, handleDeleteByID, } = this.props;
+      const { todo, _id, isDone } = this.props.item;
+      const {handleDoneByID, handleDeleteByID, inputID} = this.props;
       const { canEdit, editInput } = this.state;
 
       return (
@@ -44,7 +51,7 @@ export class TodoList extends Component {
                      <td id="todo-td">
                         {/* edit/submit dynamic input to line item*/}
                         {canEdit ? (
-                           <input type="text" name="editInput" value={editInput} onChange={this.handleEditOnChange}/> 
+                           <input id={inputID} type="text" name="editInput" value={editInput} onChange={this.handleEditOnChange}/> 
                         ) : (
                            <li className={`${isDone && `li-done`}`}>{todo}</li>
                         )}
