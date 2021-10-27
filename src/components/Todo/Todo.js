@@ -176,12 +176,16 @@ export class Todo extends Component {
    //    })
    // };
 
-   sortByDone = () => {
-
-   };
-
-   sortByNotDone = () => {
-
+   sortByDone = async (isDone) => {
+      try {
+         let isDoneArray = await axios.get(`http://localhost:3001/api/todos/get-todos-by-done?isDone=${isDone}`);
+         console.log(isDoneArray)
+         this.setState({
+            todoList: isDoneArray.data.payload,
+         })
+      } catch (e) {
+         console.log(e)
+      }
    };
 
 // =============== Render Below ======================
@@ -232,14 +236,14 @@ export class Todo extends Component {
 
                   {/* sort by isDone */}
                   <li>
-                     <button onClick={this.sortByDone}>
+                     <button onClick={() => this.sortByDone("true")}>
                         Completed
                      </button>
                   </li>
 
                   {/* sort by is *NOT* Done */}
                   <li>
-                     <button onClick={this.sortByNotDone}>
+                     <button onClick={() => this.sortByDone("false")}>
                         Not Completed
                      </button>
                   </li>
