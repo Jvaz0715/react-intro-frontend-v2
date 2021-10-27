@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '../common/Button';
 
 import "./TodoList.css";
 
@@ -52,18 +53,49 @@ export class TodoList extends Component {
                      <td>
                         {/* edit/submit dynamic button*/}
                         {canEdit 
-                           ? (<button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(_id)}>Submit</button>)
-                           : (<button className="todo-buttons" id="edit-button" onClick={this.onHandleEditClick}>Edit</button>)
+                           ? (
+                              // <button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(_id)}>Submit</button>
+                              // Above is hardcoded, below is refactor to use common Button.js
+                              <Button 
+                                 buttonName="Submit"
+                                 cssid="edit-button"
+                                 className="todo-buttons"
+                                 clickFunc={() => this.onHandleEditSubmit(_id)}
+                              />
+                           ) : (
+                              // <button className="todo-buttons" id="edit-button" onClick={this.onHandleEditClick}>Edit</button>
+                              // Above is hardcoded, below is refactor to use common Button.js
+                              <Button 
+                                 buttonName="Edit"
+                                 cssid="edit-button"
+                                 className="todo-buttons"
+                                 clickFunc={this.onHandleEditClick}
+                              />
+                           )
                         }
                      </td>
 
                      <td>
                         {/* done toggle for isDone */}
-                        <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(_id, isDone)}>Done</button>
+                        {/* <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(_id, isDone)}>Done</button> */}
+                        {/* Above is hardcoded, below is refactor to use common Button.js */}
+                        <Button 
+                           buttonName="Done"
+                           cssid="done-button"
+                           className="todo-buttons"
+                           clickFunc={() => handleDoneByID(_id, isDone)}
+                        />
                      </td>
 
                      <td>
-                        <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(_id)}>Delete</button>
+                        {/* <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(_id)}>Delete</button> */}
+                        {/* Above is hardcoded, below is refactor to use common Button.js */}
+                        <Button 
+                           buttonName="Delete"
+                           cssid="delete-button"
+                           className="todo-buttons"
+                           clickFunc={() => handleDeleteByID(_id)}
+                        />
                      </td>
                   </tr>
                </tbody>
