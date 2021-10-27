@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import TodoList from './TodoList';
 import "./Todo.css";
@@ -15,19 +15,18 @@ export class Todo extends Component {
    };
 
    //================= lifecycles to use data ====================
-
+   // after render, data will be updated
    async componentDidMount() {
       try{
          let allTodos = await axios.get("http://localhost:3001/api/todos/get-all-todos");
-         console.log(allTodos)
+         // console.log(allTodos)
          this.setState({
             todoList: allTodos.data.payload,
          })
       } catch(e) {
          console.log(e)
       }
-      
-   }
+   };
 
    //================= Handles input and submit of new todo ====================
    // functions
@@ -41,7 +40,7 @@ export class Todo extends Component {
    };
 
    // we use handleOnSubmit to use in the form so that when the submit button is clicked, we actually add the input todo to the state's todoList array! handle on submit also takes an e(event) as an argument
-   handleOnSubmit = (e) => {
+   handleOnSubmit = async (e) => {
       // inside of this function is where we add the preventDefault, otherwise the page will keep refreshing onsubmit click
       e.preventDefault();
 
@@ -60,23 +59,32 @@ export class Todo extends Component {
             errorMessage: "Todo already exists!",
             });
          } else {
-            // logic to add a new todo below!
-         let newTodoArray = [
-            ...this.state.todoList, 
-            {
-               id: uuidv4(),
-               todo: this.state.todoInput,
-               isDone: false,
-               dateAdded: new Date().getTime(),
-            }
-         ];
+            try {
+               let createdTodo = await axios.post("http://localhost:3001/api/todos/create-todo", {todo: this.state.todoInput,});
 
-         // once we have our NEW array, we setState to it
-         this.setState({
-            todoList: newTodoArray,
-            todoInput: "",
-         })
-         }
+               console.log(createdTodo)
+
+
+            } catch(e){
+               console.log(e)
+            }
+            // // logic to add a new todo below is based on not hitting backend
+            // let newTodoArray = [
+            //    ...this.state.todoList, 
+            //    {
+            //       id: uuidv4(),
+            //       todo: this.state.todoInput,
+            //       isDone: false,
+            //       dateAdded: new Date().getTime(),
+            //    }
+            // ];
+
+            // // once we have our NEW array, we setState to it
+            // this.setState({
+            //    todoList: newTodoArray,
+            //    todoInput: "",
+            // })
+         };
          
       };
    };
@@ -153,7 +161,6 @@ export class Todo extends Component {
 
    };
 
-
 // =============== Render Below ======================
    render() {
       return (
@@ -217,7 +224,6 @@ export class Todo extends Component {
 
                </ul>
             </div>
-
 
             {/* Todo List Container with all todos! */}
             <div className="todo-list-container">
