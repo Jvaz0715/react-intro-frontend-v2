@@ -140,28 +140,41 @@ export class Todo extends Component {
 
    //=================Todo list sort buttons ====================
 
-   sortByDateNewestToOldest = () => {
-      let sortedTodoList = this.state.todoList
-         .sort((a, b) => {
-            return new Date(a.dateAdded) - new Date(b.dateAdded);
+   sortByDate = async (sortOrder) => {
+      try {
+         let sortedTodos = await axios.get(`http://localhost:3001/api/todos/get-todos-by-sort?sort=${sortOrder}`);
+
+         this.setState({
+            todoList: sortedTodos.data.payload,
          })
-         .reverse();
-      
-      this.setState({
-         todoList: sortedTodoList,
-      })
+      } catch(e) {
+         console.log(e);
+      }
    };
 
-   sortByDateOldestToNewest = () => {
-      let sortedTodoList = this.state.todoList
-         .sort((a, b) => {
-            return new Date(a.dateAdded) - new Date(b.dateAdded);
-         });
+   // below is without the backend
+   // sortByDateNewestToOldest = () => {
+   //    let sortedTodoList = this.state.todoList
+   //       .sort((a, b) => {
+   //          return new Date(a.dateAdded) - new Date(b.dateAdded);
+   //       })
+   //       .reverse();
       
-      this.setState({
-         todoList: sortedTodoList,
-      })
-   };
+   //    this.setState({
+   //       todoList: sortedTodoList,
+   //    })
+   // };
+
+   // sortByDateOldestToNewest = () => {
+   //    let sortedTodoList = this.state.todoList
+   //       .sort((a, b) => {
+   //          return new Date(a.dateAdded) - new Date(b.dateAdded);
+   //       });
+      
+   //    this.setState({
+   //       todoList: sortedTodoList,
+   //    })
+   // };
 
    sortByDone = () => {
 
@@ -205,14 +218,14 @@ export class Todo extends Component {
                   
                   {/* date newest to oldest */}
                   <li>
-                     <button onClick={this.sortByDateNewestToOldest}>
+                     <button onClick={()=> this.sortByDate("desc")}>
                         Most Recent
                      </button>
                   </li>
 
                   {/* date oldest to newest */}
                   <li>
-                     <button onClick={this.sortByDateOldestToNewest}>
+                     <button onClick={() => this.sortByDate("asc")}>
                         Oldest
                      </button>
                   </li>
