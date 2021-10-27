@@ -115,17 +115,22 @@ export class Todo extends Component {
    };
 
    // handleDoneByID
-   handleDoneByID = (id, isDone) => {
-      let updatedArray = this.state.todoList.map(item => {
-         if (item.id === id) {
-            item.isDone = !item.isDone;
-         }
-         return item;
-      });
-
-      this.setState({
-         todoList: updatedArray,
-      })
+   handleDoneByID = async (id, isDone) => {
+      try {
+         let updatedTodo = await axios.put(`http://localhost:3001/api/todos/update-todo-by-id/${id}`, {isDone: !isDone});
+         let updatedArray = this.state.todoList.map((item) => {
+            if (item._id === updatedTodo.data.payload._id) {
+               item.isDone = updatedTodo.data.payload.isDone;
+            }
+            return item;
+         });
+   
+         this.setState({
+            todoList: updatedArray,
+         })
+      } catch(e) {
+         console.log(e)
+      }
    };
 
    //=================Todo list sort buttons ====================
