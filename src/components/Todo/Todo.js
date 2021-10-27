@@ -4,6 +4,10 @@ import axios from "axios";
 import TodoList from './TodoList';
 import "./Todo.css";
 
+// the below will take account of working locally or if in deployed cloud address like we did in AWS
+// const URL = process.env.NODE_ENV === "production" ? "DEPLOYED ADDRESS" : "http://localhost:3001"
+const URL = "http://localhost:3001";
+
 export class Todo extends Component {
 
    //================= Our State ====================
@@ -60,7 +64,7 @@ export class Todo extends Component {
             });
          } else {
             try {
-               let createdTodo = await axios.post("http://localhost:3001/api/todos/create-todo", {todo: this.state.todoInput,});
+               let createdTodo = await axios.post(`${URL}/api/todos/create-todo`, {todo: this.state.todoInput,});
                
                // // logic to add a new todo below is based on not hitting backend
                let newTodoArray = [
@@ -86,7 +90,7 @@ export class Todo extends Component {
    // handleEditByID => Really pay attention to this as it relies on code inside of TodoList.js
    handleEditByID = async (id, editInput) => {
       try{
-         let updatedTodo = await axios.put(`http://localhost:3001/api/todos/update-todo-by-id/${id}`, {todo: editInput});
+         let updatedTodo = await axios.put(`${URL}/api/todos/update-todo-by-id/${id}`, {todo: editInput});
          let updatedArray = this.state.todoList.map(item => {
             if(item._id === updatedTodo.data.payload._id) {
                item.todo = updatedTodo.data.payload.todo;
@@ -105,7 +109,7 @@ export class Todo extends Component {
    // handleDeleteByID
    handleDeleteByID = async (id) => {
       try{
-         let deletedTodo = await axios.delete(`http://localhost:3001/api/todos/delete-todo-by-id/${id}`);
+         let deletedTodo = await axios.delete(`${URL}/api/todos/delete-todo-by-id/${id}`);
          let newTodoArray = this.state.todoList.filter(item => item._id !== deletedTodo.data.payload._id);
 
          this.setState({
@@ -121,7 +125,7 @@ export class Todo extends Component {
    // handleDoneByID
    handleDoneByID = async (id, isDone) => {
       try {
-         let updatedTodo = await axios.put(`http://localhost:3001/api/todos/update-todo-by-id/${id}`, {isDone: !isDone});
+         let updatedTodo = await axios.put(`${URL}/api/todos/update-todo-by-id/${id}`, {isDone: !isDone});
          let updatedArray = this.state.todoList.map((item) => {
             if (item._id === updatedTodo.data.payload._id) {
                item.isDone = updatedTodo.data.payload.isDone;
@@ -141,7 +145,7 @@ export class Todo extends Component {
 
    sortByDate = async (sortOrder) => {
       try {
-         let sortedTodos = await axios.get(`http://localhost:3001/api/todos/get-todos-by-sort?sort=${sortOrder}`);
+         let sortedTodos = await axios.get(`${URL}/api/todos/get-todos-by-sort?sort=${sortOrder}`);
 
          this.setState({
             todoList: sortedTodos.data.payload,
@@ -177,7 +181,7 @@ export class Todo extends Component {
 
    sortByDone = async (isDone) => {
       try {
-         let isDoneArray = await axios.get(`http://localhost:3001/api/todos/get-todos-by-done?isDone=${isDone}`);
+         let isDoneArray = await axios.get(`${URL}/api/todos/get-todos-by-done?isDone=${isDone}`);
       
          this.setState({
             todoList: isDoneArray.data.payload,
