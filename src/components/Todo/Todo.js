@@ -107,7 +107,7 @@ export class Todo extends Component {
       try{
          console.log("handleDeleteByID: ", id)
          let deletedTodo = await axios.delete(`http://localhost:3001/api/todos/delete-todo-by-id/${id}`);
-         let newTodoArray = this.state.todoList.filter(item => item.id !== deletedTodo.data.payload.id);
+         let newTodoArray = this.state.todoList.filter(item => item._id !== deletedTodo.data.payload._id);
 
          this.setState({
             todoList: newTodoArray,
