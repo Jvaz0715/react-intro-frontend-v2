@@ -61,29 +61,21 @@ export class Todo extends Component {
          } else {
             try {
                let createdTodo = await axios.post("http://localhost:3001/api/todos/create-todo", {todo: this.state.todoInput,});
+               
+               // // logic to add a new todo below is based on not hitting backend
+               let newTodoArray = [
+                  ...this.state.todoList, 
+                  createdTodo.data.payload
+               ];
 
-               console.log(createdTodo)
-
-
+               // once we have our NEW array, we setState to it
+               this.setState({
+                  todoList: newTodoArray,
+                  todoInput: "",
+               });
             } catch(e){
                console.log(e)
             }
-            // // logic to add a new todo below is based on not hitting backend
-            // let newTodoArray = [
-            //    ...this.state.todoList, 
-            //    {
-            //       id: uuidv4(),
-            //       todo: this.state.todoInput,
-            //       isDone: false,
-            //       dateAdded: new Date().getTime(),
-            //    }
-            // ];
-
-            // // once we have our NEW array, we setState to it
-            // this.setState({
-            //    todoList: newTodoArray,
-            //    todoInput: "",
-            // })
          };
          
       };
