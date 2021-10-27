@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import { v4 as uuidv4 } from "uuid";
+import Button from '../common/Button';
 import axios from "axios";
 import TodoList from './TodoList';
 import "./Todo.css";
@@ -225,30 +226,50 @@ export class Todo extends Component {
                   
                   {/* date newest to oldest */}
                   <li>
-                     <button onClick={()=> this.sortByDate("desc")}>
+                     {/* <button onClick={()=> this.sortByDate("desc")}>
                         Most Recent
-                     </button>
+                     </button> */}
+                     {/* Above is hardcoded, below is refactor to use common Button.js */}
+                     <Button 
+                        buttonName="Most Recent"
+                        clickFunc={() => this.sortByDate("desc")}
+                     />
                   </li>
 
                   {/* date oldest to newest */}
                   <li>
-                     <button onClick={() => this.sortByDate("asc")}>
+                     {/* <button onClick={() => this.sortByDate("asc")}>
                         Oldest
-                     </button>
+                     </button> */}
+                     {/* Above is hardcoded, below is refactor to use common Button.js */}
+                     <Button 
+                        buttonName="Oldest"
+                        clickFunc={() => this.sortByDate("asc")}
+                     />
                   </li>
 
                   {/* sort by isDone */}
                   <li>
-                     <button onClick={() => this.sortByDone("true")}>
+                     {/* <button onClick={() => this.sortByDone("true")}>
                         Completed
-                     </button>
+                     </button> */}
+                     {/* Above is hardcoded, below is refactor to use common Button.js */}
+                     <Button 
+                        buttonName="Completed"
+                        clickFunc={() => this.sortByDone("true")}
+                     />
                   </li>
 
                   {/* sort by is *NOT* Done */}
                   <li>
-                     <button onClick={() => this.sortByDone("false")}>
+                     {/* <button onClick={() => this.sortByDone("false")}>
                         Not Completed
-                     </button>
+                     </button> */}
+                     {/* Above is hardcoded, below is refactor to use common Button.js */}
+                     <Button 
+                        buttonName="Not Completed"
+                        clickFunc={() => this.sortByDone("false")}
+                     />
                   </li>
                </ul>
             </div>
