@@ -105,7 +105,6 @@ export class Todo extends Component {
    // handleDeleteByID
    handleDeleteByID = async (id) => {
       try{
-         console.log("handleDeleteByID: ", id)
          let deletedTodo = await axios.delete(`http://localhost:3001/api/todos/delete-todo-by-id/${id}`);
          let newTodoArray = this.state.todoList.filter(item => item._id !== deletedTodo.data.payload._id);
 
@@ -179,7 +178,7 @@ export class Todo extends Component {
    sortByDone = async (isDone) => {
       try {
          let isDoneArray = await axios.get(`http://localhost:3001/api/todos/get-todos-by-done?isDone=${isDone}`);
-         console.log(isDoneArray)
+      
          this.setState({
             todoList: isDoneArray.data.payload,
          })
