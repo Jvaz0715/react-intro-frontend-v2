@@ -65,7 +65,7 @@ export class Todo extends Component {
                // // logic to add a new todo below is based on not hitting backend
                let newTodoArray = [
                   ...this.state.todoList, 
-                  createdTodo.data.payload
+                  createdTodo.data.payload,
                ];
 
                // once we have our NEW array, we setState to it
@@ -98,12 +98,20 @@ export class Todo extends Component {
    };
 
    // handleDeleteByID
-   handleDeleteByID = (id) => {
-      let newTodoArray = this.state.todoList.filter(item => item.id !== id);
+   handleDeleteByID = async (id) => {
+      try{
+         console.log("handleDeleteByID: ", id)
+         let deletedTodo = await axios.delete(`http://localhost:3001/api/todos/delete-todo-by-id/${id}`);
+         let newTodoArray = this.state.todoList.filter(item => item.id !== deletedTodo.data.payload.id);
 
-      this.setState({
-         todoList: newTodoArray,
-      })
+         this.setState({
+            todoList: newTodoArray,
+         });
+         
+      } catch(e){
+         console.log(e)
+      }
+
    };
 
    // handleDoneByID

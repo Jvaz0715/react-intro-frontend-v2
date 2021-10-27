@@ -31,7 +31,7 @@ export class TodoList extends Component {
 
    render() {
       
-      const { todo, id, isDone, } = this.props.item;
+      const { todo, _id, isDone, } = this.props.item;
       const {handleDoneByID, handleDeleteByID, } = this.props;
       const { canEdit, editInput } = this.state;
 
@@ -52,18 +52,18 @@ export class TodoList extends Component {
                      <td>
                         {/* edit/submit dynamic button*/}
                         {canEdit 
-                           ? (<button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(id)}>Submit</button>)
+                           ? (<button className="todo-buttons" id="edit-button" onClick={() => this.onHandleEditSubmit(_id)}>Submit</button>)
                            : (<button className="todo-buttons" id="edit-button" onClick={this.onHandleEditClick}>Edit</button>)
                         }
                      </td>
 
                      <td>
                         {/* done toggle for isDone */}
-                        <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(id, isDone)}>Done</button>
+                        <button className="todo-buttons" id="done-button" onClick={() => handleDoneByID(_id, isDone)}>Done</button>
                      </td>
 
                      <td>
-                        <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(id)}>Delete</button>
+                        <button className="todo-buttons" id="delete-button" onClick={() => handleDeleteByID(_id)}>Delete</button>
                      </td>
                   </tr>
                </tbody>
